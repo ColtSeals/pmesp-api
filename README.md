@@ -87,14 +87,31 @@ git push -u origin main
 
 
 3) Na VPS: só “clone e roda”
+
+
 apt update -y
-apt install -y git docker.io docker-compose-plugin jq
+apt install -y git docker.io docker-compose jq openssl
+
 systemctl enable --now docker
 
-git clone https://github.com/SEUUSER/pmesp-api.git /opt/pmesp-api
+docker --version
+docker compose version || docker-compose version
+
+git clone https://github.com/ColtSeals/pmesp-api.git /opt/pmesp-api
 cd /opt/pmesp-api
-docker compose up -d --build
-docker compose ps
+
+# sobe (tenta "docker compose", se não tiver cai pro "docker-compose")
+docker compose up -d --build || docker-compose up -d --build
+
+docker ps
+docker compose logs -n 50 api || docker-compose logs -n 50 api
+
+
+
+
+
+
+
 
 
 Se você quiser, eu também já deixo esse repo “mais redondo” com:
